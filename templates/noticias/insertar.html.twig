@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block contenido %}
+
+    <a href="{{ path('noticias') }}">Volver</a>
+    <article>
+        {{ form_start(formulario)}}
+        {{ form_widget(formulario)}}
+        {{ form_end(formulario)}}
+    </article>
+{% endblock %}

@@ -1,5 +1,5 @@
-{# {% extends 'base.html.twig' %}
-
+{% extends 'base.html.twig' %}
+{#
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
@@ -24,13 +24,17 @@
     bienvenidos a las noticias de la symtienda -
     <small>{ controller_name }</small>
     <hr>
+    <a href="{{ path('noticias_insertar') }}">insertar noticia</a>
+    <hr>
     <p>la ultima visita fue a las -> {{ ultimaVisita|date('d/m/Y') }}</p>
     <hr>
 
     {% for noticia in noticias %}
         <article>
             <header>
+                <a href="{{ path('noticias_detalle', {'id':noticia.id}) }}">
                 <h3>{{ noticia.titulo }}</h3>
+                </a>
             </header>
             <section>{{ noticia.descripcion }}</section>
             <br>

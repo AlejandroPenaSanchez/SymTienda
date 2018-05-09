@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block contenido %}
+
+    <a href="{{ path('noticias') }}">Volver</a>
+    <article>
+        <header>
+            <h1>{{ noticia.titulo }}</h1>
+        </header>
+        <section>{{ noticia.descripcion }}</section>
+        <br>
+        <footer>
+            {{ noticia.fecha|date('d/m/Y') }} - 
+            Author: {{ noticia.autor }}
+        </footer>
+    </article>
+{% endblock %}
