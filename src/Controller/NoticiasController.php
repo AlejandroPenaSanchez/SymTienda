@@ -73,9 +73,62 @@ class NoticiasController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($noticia);
             $entityManager->flush();
+        
+            return $this->redirectToRoute('noticias');
+        
         }
 
         return $this->render('noticias/insertar.html.twig', [
+            'formulario' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/eliminar_noticia/{id}", name="eliminar_noticia")
+     */
+    public function EliminarNoticia($id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Noticias::class);
+        $noticias = $repository->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($noticias);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('noticias');
+    }
+
+
+    /**
+     * @Route("/modificar_noticia/{id}", name="modificar_noticia")
+     */
+    public function ModificarNoticia(Request $request, $id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Noticias::class);
+        $noticia = $repository->find($id);
+
+        $form = $this->createFormBuilder($noticia)
+            ->add('titulo', TextType::Class)
+            ->add('descripcion', TextareaType::Class)
+            ->add('autor', TextType::Class)
+            ->add('fecha', DateTimeType::Class)
+            ->add('enviar', SubmitType::Class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $noticia = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($noticia);
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('noticias');
+        
+        }
+
+        return $this->render('noticias/insertar.html.twig', [ //
             'formulario' => $form->createView()
         ]);
     }

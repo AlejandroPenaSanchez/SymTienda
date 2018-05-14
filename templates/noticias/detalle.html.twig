@@ -6,7 +6,16 @@
         <header>
             <h1>{{ noticia.titulo }}</h1>
         </header>
-        <section>{{ noticia.descripcion }}</section>
+        <section>
+            {{ noticia.descripcion }}
+            <hr>
+            <a href="{{ path('modificar_noticia', {'id':noticia.id}) }}">
+                Modificar noticia
+            </a>
+            <a href="{{ path('eliminar_noticia', {'id':noticia.id}) }}">
+                Eliminar noticia
+            </a>
+        </section>
         <br>
         <footer>
             {{ noticia.fecha|date('d/m/Y') }} - 
